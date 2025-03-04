@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
 import "./BlogLand.css";
 import { FaArrowRight } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa"; 
+import { FaSearch } from "react-icons/fa";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 const articles = [
   { id: 1, title: "What is JSX?", category: "REACT", date: "18/02/2022" },
   { id: 2, title: "What is the difference between let and const?", category: "JAVASCRIPT", date: "22/03/2022" },
@@ -11,11 +14,11 @@ const articles = [
   { id: 6, title: "How to use lazy loading in HTML?", category: "HTML", date: "18/02/2022" },
 ];
 
-// Objet de couleurs pour chaque catégorie
+
 const categoryColors = {
-  REACT: "#09568D", // Bleu pour REACT
-  JAVASCRIPT: "#FDD64C", // Jaune pour JAVASCRIPT
-  HTML: "#DC3545", // Rouge pour HTML
+  REACT: "#09568D", 
+  JAVASCRIPT: "#FDD64C", 
+  HTML: "#DC3545", 
 };
 
 export default function Article() {
@@ -32,7 +35,10 @@ export default function Article() {
 
   return (
     <div>
-      <h1 className="title">BlogLand</h1>
+     
+      <div className="menu">
+      <h1 className="title">BlogLand </h1>
+      <FontAwesomeIcon icon={faBars} /></div>
       <div className="search-bar">
       
       <input
@@ -41,10 +47,10 @@ export default function Article() {
         onChange={(e) => setSearch(e.target.value)}
        
         placeholder="Search..."
-      /><FaSearch className="search-icon" />
+      /><button><FaSearch className="search-icon" /></button>
     </div>
       <p className="results"><span className="result">{filteredArticles.length}</span> results found</p>
-      <div>
+      <div  className="card">
         {filteredArticles.map((article) => (
           <div
             key={article.id}
@@ -53,13 +59,13 @@ export default function Article() {
           >
             <span
               className="category"
-              style={{ backgroundColor: categoryColors[article.category] }} 
+              style={{ backgroundColor: categoryColors[article.category] }} data-category={article.category} 
             >
               {article.category}
             </span>
             <h2 className="article-title" data-category={article.category} >{article.title}</h2>
-            <div className="article-date">{article.date} <FaArrowRight className="fil" />
-            </div>
+            <div className="date"><p className="article-date">{article.date}</p> <button><FaArrowRight className="fil"  data-category={article.category}/></button></div> 
+           
           </div>
         ))}
       </div>
